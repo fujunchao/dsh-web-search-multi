@@ -2,6 +2,8 @@ English | [中文](README.md)
 
 # dsh-web-search-multi
 
+![CI](https://github.com/fujunchao/dsh-web-search-multi/actions/workflows/ci.yml/badge.svg)
+
 A multi-backend web search provider plugin for **DeepSeek Harness (dsh)**. It plugs into the `ctx.web` search seam and powers the built-in `web_search` tool with pluggable search backends.
 
 ---

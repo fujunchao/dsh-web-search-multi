@@ -2,6 +2,8 @@
 
 # dsh-web-search-multi
 
+![CI](https://github.com/fujunchao/dsh-web-search-multi/actions/workflows/ci.yml/badge.svg)
+
 一个用于 **DeepSeek Harness (dsh)** 的多后端联网搜索插件。它接入 `ctx.web` 搜索能力，为内置的 `web_search` 工具提供可切换的搜索后端。
 
 ---
