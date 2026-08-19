@@ -1,5 +1,6 @@
 import type { Context } from '@deepseek-ai/cordis';
 import z from '@deepseek-ai/schemastery';
+import type { StreamChunk } from '@deepseek-ai/dsh-llm';
 import type { WebSearchProvider } from '@deepseek-ai/dsh-web';
 
 export declare const name = 'web-search-multi';
@@ -25,6 +26,7 @@ export interface Config {
 
 export declare const Config: z<Config>;
 export declare const MULTI_SETTINGS_NAMESPACE: unknown;
+export declare function stabilizeToolCallIdentity(stream: AsyncIterable<StreamChunk>): AsyncGenerator<StreamChunk>;
 export declare class MultiSearchProvider implements WebSearchProvider {
   readonly id: string;
   constructor(resolveOptions: () => unknown);

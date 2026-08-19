@@ -17,6 +17,7 @@ A multi-backend web search provider plugin for **DeepSeek Harness (dsh)**. It pl
 - Customizable API keys, endpoints, and model names
 - Configurable from the dsh Web UI (Settings → Plugins → Plugin configuration → Web search)
 - Only the selected backend's settings are shown in the UI
+- DSH `0.1.0-rc.7` compatibility: prevents blank continuation frames from erasing a streamed tool-call identity and causing `unknown tool ""` followed by HTTP 422
 
 ## Supported Backends
 
@@ -30,6 +31,20 @@ A multi-backend web search provider plugin for **DeepSeek Harness (dsh)**. It pl
 > Note: Some third-party proxies may accept the request but do not actually execute server-side web search. For Grok, use the official xAI API to get real search results and citations.
 
 ## Installation
+
+Install a pinned release from GitHub:
+
+```bash
+dsh plugin --profile web add github:fujunchao/dsh-web-search-multi#v0.1.1
+```
+
+If you also use the headless profile:
+
+```bash
+dsh plugin --profile headless add github:fujunchao/dsh-web-search-multi#v0.1.1
+```
+
+For local development, install directly from a checkout:
 
 ```bash
 dsh plugin --profile web add file:/path/to/dsh-web-search-multi
@@ -51,6 +66,19 @@ Then add the provider to your profile patch (`~/.dsh/profiles/web/cordis.patch.y
       config:
         provider: tavily
 ```
+
+To upgrade, rerun the GitHub installation command for each profile and restart dsh.
+
+## DSH rc.7 Compatibility Fix
+
+Some OpenAI-compatible gateways send `id: ""` and `name: null` continuation frames after the first valid tool-call frame. DSH `0.1.0-rc.7` can let those frames erase the identity, resulting in:
+
+```text
+Error: unknown tool ""
+Upstream request failed: [missing_required_parameter] Field required
+```
+
+Starting with `v0.1.1`, this plugin preserves the last non-empty ID and name for each streamed tool call at the LLM boundary. The compatibility layer also protects non-search tool calls while the plugin is loaded, without changing valid identities.
 
 ## Configuration
 

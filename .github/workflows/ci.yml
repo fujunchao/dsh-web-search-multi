@@ -20,10 +20,16 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Test
+        run: npm test
 
       - name: Syntax check
         run: node --check lib/index.js
 
       - name: Module load check
         run: node --input-type=module -e "import('./lib/index.js')"
+
+      - name: Package check
+        run: npm pack --dry-run

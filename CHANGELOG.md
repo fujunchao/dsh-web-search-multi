@@ -1,0 +1,15 @@
+# 更新日志
+
+## 0.1.1 - 2026-08-19
+
+- 兼容 DSH `0.1.0-rc.7` 的流式工具调用：保留最后一个非空的工具调用 ID 和名称。
+- 修复部分 OpenAI 兼容网关触发的 `Error: unknown tool ""`。
+- 避免空工具调用历史继续导致 `HTTP 422 missing_required_parameter`。
+- 增加覆盖空白延续帧和多工具索引隔离的自动化测试。
+- CI 改用 `npm ci`，并增加测试与打包检查。
+
+## 0.1.0 - 2026-08-15
+
+- 首次发布。
+- 支持 Tavily、Grok/xAI、OpenAI 和 Gemini 搜索后端。
+- 支持 DSH Web 设置界面和 Credentials 服务。
