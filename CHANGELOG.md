@@ -1,5 +1,12 @@
 # 更新日志
 
+## 0.1.2 - 2026-08-19
+
+- 补齐 DSH `dsh.client` 浏览器端 bundle，在“设置 → 插件 → 插件配置”中注册 `web-search-multi` 配置卡片。
+- UI 支持切换 Tavily、Grok、OpenAI、Gemini，并编辑 Endpoint、模型、凭据名及 Tavily 搜索参数。
+- API Key 通过 Credentials 服务写入，浏览器不会读取或回显已保存的密钥。
+- 修正 TypeScript 声明，使其与实际使用的扁平配置字段一致。
+
 ## 0.1.1 - 2026-08-19
 
 - 兼容 DSH `0.1.0-rc.7` 的流式工具调用：保留最后一个非空的工具调用 ID 和名称。

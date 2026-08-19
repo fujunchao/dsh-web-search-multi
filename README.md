@@ -35,13 +35,13 @@
 从 GitHub 安装固定版本：
 
 ```bash
-dsh plugin --profile web add github:fujunchao/dsh-web-search-multi#v0.1.1
+dsh plugin --profile web add github:fujunchao/dsh-web-search-multi#v0.1.2
 ```
 
 如果同时使用 headless profile：
 
 ```bash
-dsh plugin --profile headless add github:fujunchao/dsh-web-search-multi#v0.1.1
+dsh plugin --profile headless add github:fujunchao/dsh-web-search-multi#v0.1.2
 ```
 
 本地开发目录也可以直接安装：
@@ -120,9 +120,11 @@ GEMINI_API_KEY: AIza...
 
 安装并重启 dsh 后，打开：
 
-> 设置 → 插件 → 插件配置 → Web search
+> 设置 → 插件 → 插件配置 → 多后端 Web 搜索
 
 可以在 UI 中直接选择当前搜索后端，并配置对应的 API Key、Endpoint 和模型名。
+
+`v0.1.2` 起插件同时提供 Host 端 settings 命名空间和 `dsh.client` 浏览器配置卡片；旧版本只有 Host 端注册，因此搜索可以工作，但配置卡片不会出现在 UI 中。
 
 ## 开源协议
 

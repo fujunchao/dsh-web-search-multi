@@ -26,7 +26,9 @@ jobs:
         run: npm test
 
       - name: Syntax check
-        run: node --check lib/index.js
+        run: |
+          node --check lib/index.js
+          node --check lib/client.js
 
       - name: Module load check
         run: node --input-type=module -e "import('./lib/index.js')"

@@ -35,13 +35,13 @@ A multi-backend web search provider plugin for **DeepSeek Harness (dsh)**. It pl
 Install a pinned release from GitHub:
 
 ```bash
-dsh plugin --profile web add github:fujunchao/dsh-web-search-multi#v0.1.1
+dsh plugin --profile web add github:fujunchao/dsh-web-search-multi#v0.1.2
 ```
 
 If you also use the headless profile:
 
 ```bash
-dsh plugin --profile headless add github:fujunchao/dsh-web-search-multi#v0.1.1
+dsh plugin --profile headless add github:fujunchao/dsh-web-search-multi#v0.1.2
 ```
 
 For local development, install directly from a checkout:
@@ -120,9 +120,11 @@ GEMINI_API_KEY: AIza...
 
 After installation and a dsh restart, open:
 
-> Settings → Plugins → Plugin configuration → Web search
+> Settings → Plugins → Plugin configuration → Multi-backend Web search
 
 You can select the active backend and configure its API key, endpoint, and model directly in the UI.
+
+Starting with `v0.1.2`, the package ships both the Host settings namespace and a `dsh.client` browser card. Older versions only registered the Host half, so search worked but no configuration card appeared in the UI.
 
 ## License
 

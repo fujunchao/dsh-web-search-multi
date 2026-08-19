@@ -6,22 +6,26 @@ import type { WebSearchProvider } from '@deepseek-ai/dsh-web';
 export declare const name = 'web-search-multi';
 export declare const inject: string[];
 
-export interface BackendConfig {
-  apiKey?: string;
-  apiKeyEnv?: string;
-  baseURL?: string;
-  model?: string;
-  maxResults?: number;
-  searchDepth?: string;
-  includeAnswer?: boolean;
-}
-
 export interface Config {
   provider?: 'tavily' | 'grok' | 'openai' | 'gemini';
-  tavily?: BackendConfig;
-  grok?: BackendConfig;
-  openai?: BackendConfig;
-  gemini?: BackendConfig;
+  tavilyApiKey?: string;
+  tavilyApiKeyEnv?: string;
+  tavilyBaseURL?: string;
+  tavilyMaxResults?: number;
+  tavilySearchDepth?: string;
+  tavilyIncludeAnswer?: boolean;
+  grokApiKey?: string;
+  grokApiKeyEnv?: string;
+  grokBaseURL?: string;
+  grokModel?: string;
+  openaiApiKey?: string;
+  openaiApiKeyEnv?: string;
+  openaiBaseURL?: string;
+  openaiModel?: string;
+  geminiApiKey?: string;
+  geminiApiKeyEnv?: string;
+  geminiBaseURL?: string;
+  geminiModel?: string;
 }
 
 export declare const Config: z<Config>;
