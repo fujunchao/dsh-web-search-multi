@@ -17,7 +17,7 @@
 - 可自定义 API Key、Endpoint、模型名
 - 支持在 dsh Web UI 中配置（设置 → 插件 → 插件配置 → Web search）
 - UI 只显示当前选中后端的配置项
-- 兼容 DSH `0.1.0-rc.7`：防止部分 OpenAI 兼容网关的空白流式帧把工具调用名称覆盖为空，避免 `unknown tool ""` 和后续 HTTP 422
+- 兼容 DSH `0.1.0-rc.7` 与 `0.1.1-rc.2`：防止部分 OpenAI 兼容网关的空白流式帧把工具调用名称覆盖为空，避免 `unknown tool ""` 和后续 HTTP 422
 
 ## 支持的后端
 
@@ -35,13 +35,13 @@
 从 GitHub 安装固定版本：
 
 ```bash
-dsh plugin --profile web add github:fujunchao/dsh-web-search-multi#v0.1.2
+dsh plugin --profile web add github:fujunchao/dsh-web-search-multi#v0.1.3
 ```
 
 如果同时使用 headless profile：
 
 ```bash
-dsh plugin --profile headless add github:fujunchao/dsh-web-search-multi#v0.1.2
+dsh plugin --profile headless add github:fujunchao/dsh-web-search-multi#v0.1.3
 ```
 
 本地开发目录也可以直接安装：
@@ -69,9 +69,9 @@ dsh plugin --profile web add file:/path/to/dsh-web-search-multi
 
 升级到当前版本时，重新执行对应 profile 的 GitHub 安装命令，然后重启 dsh。
 
-## DSH rc.7 兼容修复
+## DSH 工具调用兼容修复
 
-部分 OpenAI 兼容网关会在第一个有效的工具调用帧之后继续发送 `id: ""`、`name: null`。DSH `0.1.0-rc.7` 会把已经收到的工具调用标识覆盖为空，表现为：
+部分 OpenAI 兼容网关会在第一个有效的工具调用帧之后继续发送 `id: ""`、`name: null`。DSH `0.1.0-rc.7` 与 `0.1.1-rc.2` 都会把已经收到的工具调用标识覆盖为空，表现为：
 
 ```text
 Error: unknown tool ""

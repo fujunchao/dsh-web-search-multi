@@ -17,7 +17,7 @@ A multi-backend web search provider plugin for **DeepSeek Harness (dsh)**. It pl
 - Customizable API keys, endpoints, and model names
 - Configurable from the dsh Web UI (Settings → Plugins → Plugin configuration → Web search)
 - Only the selected backend's settings are shown in the UI
-- DSH `0.1.0-rc.7` compatibility: prevents blank continuation frames from erasing a streamed tool-call identity and causing `unknown tool ""` followed by HTTP 422
+- DSH `0.1.0-rc.7` and `0.1.1-rc.2` compatibility: prevents blank continuation frames from erasing a streamed tool-call identity and causing `unknown tool ""` followed by HTTP 422
 
 ## Supported Backends
 
@@ -35,13 +35,13 @@ A multi-backend web search provider plugin for **DeepSeek Harness (dsh)**. It pl
 Install a pinned release from GitHub:
 
 ```bash
-dsh plugin --profile web add github:fujunchao/dsh-web-search-multi#v0.1.2
+dsh plugin --profile web add github:fujunchao/dsh-web-search-multi#v0.1.3
 ```
 
 If you also use the headless profile:
 
 ```bash
-dsh plugin --profile headless add github:fujunchao/dsh-web-search-multi#v0.1.2
+dsh plugin --profile headless add github:fujunchao/dsh-web-search-multi#v0.1.3
 ```
 
 For local development, install directly from a checkout:
@@ -69,9 +69,9 @@ Then add the provider to your profile patch (`~/.dsh/profiles/web/cordis.patch.y
 
 To upgrade, rerun the GitHub installation command for each profile and restart dsh.
 
-## DSH rc.7 Compatibility Fix
+## DSH Tool-Call Compatibility Fix
 
-Some OpenAI-compatible gateways send `id: ""` and `name: null` continuation frames after the first valid tool-call frame. DSH `0.1.0-rc.7` can let those frames erase the identity, resulting in:
+Some OpenAI-compatible gateways send `id: ""` and `name: null` continuation frames after the first valid tool-call frame. Both DSH `0.1.0-rc.7` and `0.1.1-rc.2` let those frames erase the identity, resulting in:
 
 ```text
 Error: unknown tool ""
