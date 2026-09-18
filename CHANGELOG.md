@@ -1,5 +1,13 @@
 # 更新日志
 
+## 0.1.4 - 2026-09-18
+
+- 修复设置卡片“凭据明明已配置却显示未配置、保存报‘保存失败，请检查配置或服务日志’”的问题。
+- 根因：卡片从 `ctx.get("connection")` 解构 `api`，但 `ConnectionHandle` 并不提供该成员，`api` 恒为 `undefined`；`describe`/`set` 两次调用都抛 `TypeError`，分别被 catch 成“未配置”和“保存失败”。
+- 改为经 `ctx.remote.credentials` 访问凭据域（`inject` 增加 `remote.credentials`），并按其真实契约调用：`describe(refs)` 返回 `{ ok, value: { [ref]: view } }`，`set(ref, value)` 返回 `{ ok }`。
+- 修复 Gemini 后端把 `thought: true` 的思考片段拼进搜索结果正文的问题：现仅拼接非思考片段，正文由 4600+ 字推理降为真实答案摘要。
+- 新增回归测试：凭据状态读取、密钥保存成功/被拒、Gemini 思考片段过滤，共 10 项测试。
+
 ## 0.1.3 - 2026-08-22
 
 - 适配 DSH `0.1.1-rc.2`：依赖范围由 `^0.1.0-rc.7` 提升至 `^0.1.1-rc.2`。

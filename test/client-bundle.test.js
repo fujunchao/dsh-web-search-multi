@@ -8,7 +8,7 @@ const root = new URL("../", import.meta.url);
 test("声明并导出 DSH Web 客户端配置卡片", async () => {
   const pkg = JSON.parse(await readFile(new URL("package.json", root), "utf8"));
 
-  assert.equal(pkg.version, "0.1.3");
+  assert.equal(pkg.version, "0.1.4");
   assert.equal(pkg.exports["./client"].default, "./lib/client.js");
   assert.equal(pkg.dsh.client.platform, "web");
   assert.ok(pkg.dsh.client.inject.includes("@deepseek-ai/dsh-client-ui-settings-plugins"));
@@ -34,7 +34,7 @@ test("客户端 bundle 在 web-search-multi 命名空间注册配置卡片", asy
   });
   assert.deepEqual(
     [...plugin.inject],
-    ["slots", "locale", "connection", "remote", "settingsScope"],
+    ["slots", "locale", "remote", "remote.credentials", "settingsScope"],
   );
 
   let registered;
@@ -44,7 +44,7 @@ test("客户端 bundle 在 web-search-multi 命名空间注册配置卡片", asy
     set: async () => {},
     unset: async () => {},
   };
-  const api = { credentials: {} };
+  const credentials = { describe: async () => ({ ok: true, value: {} }) };
   const ctx = {
     effect(callback) {
       callback();
@@ -59,10 +59,7 @@ test("客户端 bundle 在 web-search-multi 命名空间注册配置卡片", asy
         return scope;
       },
     },
-    get(service) {
-      assert.equal(service, "connection");
-      return { api };
-    },
+    remote: { credentials },
     slots: {
       inject(name, callback) {
         assert.equal(name, "settings.plugin.item");
@@ -81,5 +78,7 @@ test("客户端 bundle 在 web-search-multi 命名空间注册配置卡片", asy
   assert.equal(typeof registered.options.inject, "function");
   assert.equal(typeof registered.component, "function");
   assert.equal(registered.options.inject().scope, scope);
-  assert.equal(registered.options.inject().api, api);
+  // The credential namespace must come from `remote.credentials`: the
+  // connection handle carries no `api` member.
+  assert.equal(registered.options.inject().credentials, credentials);
 });

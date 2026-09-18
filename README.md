@@ -35,13 +35,13 @@
 从 GitHub 安装固定版本：
 
 ```bash
-dsh plugin --profile web add github:fujunchao/dsh-web-search-multi#v0.1.3
+dsh plugin --profile web add github:fujunchao/dsh-web-search-multi#v0.1.4
 ```
 
 如果同时使用 headless profile：
 
 ```bash
-dsh plugin --profile headless add github:fujunchao/dsh-web-search-multi#v0.1.3
+dsh plugin --profile headless add github:fujunchao/dsh-web-search-multi#v0.1.4
 ```
 
 本地开发目录也可以直接安装：

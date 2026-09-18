@@ -1,6 +1,6 @@
 {
   "name": "dsh-web-search-multi",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Multi-backend web search provider for DeepSeek Harness (Tavily, Grok/xAI, OpenAI, Gemini)",
   "type": "module",
   "main": "lib/index.js",
