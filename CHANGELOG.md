@@ -1,5 +1,14 @@
 # 更新日志
 
+## 0.1.5 - 2026-09-19
+
+- 适配 DSH `0.1.5-rc.2`：五个 `@deepseek-ai/*` 依赖由 `^0.1.1-rc.2` 提升至 `^0.1.5-rc.2`。
+- 迁移 settings 注册：`dsh-settings@0.1.5` 移除了模块级 `installSettingsSection`/`settingsNamespace` 导出，
+  改为 settings 服务上的 `installSection` 方法；插件随之改用 `ctx.inject(["settings"], ...)` 注册，
+  与官方 `dsh-web-search-deepseek` 的写法一致。
+- 依赖去重的实际收益：插件与宿主不再各自持有 `WebError`/settings 服务的不同副本
+  （旧范围内 pnpm 会为插件单独装一套 `0.1.1-rc.2` 嵌套依赖，两个 `WebError` 构造器 `instanceof` 互不识别）。
+
 ## 0.1.4 - 2026-09-18
 
 - 修复设置卡片“凭据明明已配置却显示未配置、保存报‘保存失败，请检查配置或服务日志’”的问题。

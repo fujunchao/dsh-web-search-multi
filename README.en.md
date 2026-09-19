@@ -35,13 +35,13 @@ A multi-backend web search provider plugin for **DeepSeek Harness (dsh)**. It pl
 Install a pinned release from GitHub:
 
 ```bash
-dsh plugin --profile web add github:fujunchao/dsh-web-search-multi#v0.1.4
+dsh plugin --profile web add github:fujunchao/dsh-web-search-multi#v0.1.5
 ```
 
 If you also use the headless profile:
 
 ```bash
-dsh plugin --profile headless add github:fujunchao/dsh-web-search-multi#v0.1.4
+dsh plugin --profile headless add github:fujunchao/dsh-web-search-multi#v0.1.5
 ```
 
 For local development, install directly from a checkout:
