@@ -1,3 +1,11 @@
+## 0.1.6 - 2026-09-23
+
+- 搜索请求增加网络层退避重试：fetch 抛出的瞬时网络错误（ECONNRESET、UND_ERR_SOCKET、超时、DNS 抖动等）按 500ms/1500ms/4500ms 退避重试，共 4 次尝试；HTTP 4xx/5xx 属 API 层错误，不重试。
+- 背景：出口直连 Tavily 等海外 API 存在阵发性连接重置，单次尝试失败即导致整次搜索报错；实测故障窗口约数秒，退避覆盖后可自愈。
+- 错误信息透出底层原因：网络错误文案由 `TypeError: fetch failed` 改为附带 `error.cause` 的错误码或消息（如 `[ECONNRESET]`），便于定位链路问题。
+- 重试逻辑独立为零依赖的 `lib/retry.js`，由 postJson（Tavily/Grok/OpenAI 共用）与 Gemini 的内联请求共用；退避等待期间响应 abort 信号，用户取消不必多等。
+- 新增 `test/retry.test.js`：重试后成功、重试耗尽透传原始错误、退避期间中止、错误描述格式，共 4 项测试。
+
 # 更新日志
 
 ## 0.1.5 - 2026-09-19
