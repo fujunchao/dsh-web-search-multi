@@ -8,7 +8,9 @@ const root = new URL("../", import.meta.url);
 test("声明并导出 DSH Web 客户端配置卡片", async () => {
   const pkg = JSON.parse(await readFile(new URL("package.json", root), "utf8"));
 
-  assert.equal(pkg.version, "0.1.5");
+  assert.match(pkg.version, /^\d+\.\d+\.\d+(-[\w.]+)?$/);
+  const changelog = await readFile(new URL("CHANGELOG.md", root), "utf8");
+  assert.ok(changelog.includes(`## ${pkg.version} - `), "CHANGELOG.md 应包含当前版本的条目");
   assert.equal(pkg.exports["./client"].default, "./lib/client.js");
   assert.equal(pkg.dsh.client.platform, "web");
   assert.ok(pkg.dsh.client.inject.includes("@deepseek-ai/dsh-client-ui-settings-plugins"));
