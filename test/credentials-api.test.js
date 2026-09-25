@@ -173,8 +173,8 @@ function snapshot(value) {
     user: null,
     getSnapshot: () => ({ status: "ready", revision: 1, value, user: null }),
     subscribe: () => () => {},
-    set: async () => {},
-    unset: async () => {},
+    set: async () => true,
+    unset: async () => true,
   };
 }
 
@@ -184,10 +184,22 @@ function mountSettingsCard(plugin, react, { remote, snap }) {
   const ctx = {
     effect(callback) { callback(); },
     locale: { bind: () => (key) => key, register: () => () => {} },
-    settingsScope: { bind: () => scope },
+    configForms: {
+      get: (ns) => {
+        assert.equal(ns, "web-search-multi");
+        return scope;
+      },
+      whileServed: (_names, mount) => {
+        mount();
+        return () => {};
+      },
+    },
     remote,
     slots: {
-      inject(name, callback) { callback(); },
+      inject(name, callback) {
+        assert.equal(name, "plugins.item");
+        callback();
+      },
       register(options, component) { registered = { options, component }; return () => {}; },
     },
   };

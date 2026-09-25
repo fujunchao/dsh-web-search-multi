@@ -1,3 +1,16 @@
+## 0.2.0 - 2026-09-25
+
+- 适配 DSH `0.1.7-rc.2` 的破坏性设置系统变更（DSH 移除了 `installSection` 与 `settingsScope` 服务）。
+- 宿主半边：`Config` 全部字段标记 `.volatile()`，`apply` 改为通过 `config.<field>.get()` 活视图读取，
+  删除 `ctx.inject(["settings"], ...)` + `installSection` 注册；设置表单由框架按 profile entry 自动生成，
+  用户改动持久化到 profile 的 cordis.patch.yml。
+- 客户端半边：设置卡片由 `settingsScope.bind()` 改为 `ctx.configForms.get("web-search-multi")`，
+  注册 slot 从 `settings.plugin.item` 迁移到 `plugins.item`（由插件管理页渲染），
+  并按新契约补充 `id`/`order`/`label` 与 `view === "summary"` 摘要渲染；卡片仅在宿主服务该命名空间时挂载（`configForms.whileServed`）。
+- 保存链路适配 `scope.set` 的布尔返回语义；`remote.credentials`（describe/set）wire API 不变。
+- 依赖：五个 `@deepseek-ai/*` 依赖提升至 `^0.1.7-rc.2`；`dsh.client.inject` 列表移除已停发的
+  `dsh-client-runtime` 与旧卡片宿主 `dsh-client-ui-settings-plugins`，加入渲染方 `dsh-client-ui-plugin-manager`。
+
 ## 0.1.6 - 2026-09-23
 
 - 搜索请求增加网络层退避重试：fetch 抛出的瞬时网络错误（ECONNRESET、UND_ERR_SOCKET、超时、DNS 抖动等）按 500ms/1500ms/4500ms 退避重试，共 4 次尝试；HTTP 4xx/5xx 属 API 层错误，不重试。

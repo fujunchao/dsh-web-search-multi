@@ -1,6 +1,6 @@
 {
   "name": "dsh-web-search-multi",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "Multi-backend web search provider for DeepSeek Harness (Tavily, Grok/xAI, OpenAI, Gemini)",
   "type": "module",
   "main": "lib/index.js",
@@ -28,10 +28,9 @@
       "inject": [
         "@deepseek-ai/dsh-client-connection",
         "@deepseek-ai/dsh-client-locale",
-        "@deepseek-ai/dsh-client-runtime",
         "@deepseek-ai/dsh-client-ui-settings",
-        "@deepseek-ai/dsh-api-remotes",
-        "@deepseek-ai/dsh-client-ui-settings-plugins"
+        "@deepseek-ai/dsh-client-ui-plugin-manager",
+        "@deepseek-ai/dsh-api-remotes"
       ],
       "platform": "web"
     }
@@ -47,10 +46,10 @@
   "homepage": "https://github.com/fujunchao/dsh-web-search-multi#readme",
   "dependencies": {
     "@deepseek-ai/schemastery": "^3.18.1",
-    "@deepseek-ai/dsh-web": "^0.1.5-rc.2",
-    "@deepseek-ai/dsh-llm": "^0.1.5-rc.2",
-    "@deepseek-ai/dsh-settings": "^0.1.5-rc.2",
-    "@deepseek-ai/dsh-credentials": "^0.1.5-rc.2",
-    "@deepseek-ai/dsh-launch-environment": "^0.1.5-rc.2"
+    "@deepseek-ai/dsh-web": "^0.1.7-rc.2",
+    "@deepseek-ai/dsh-llm": "^0.1.7-rc.2",
+    "@deepseek-ai/dsh-settings": "^0.1.7-rc.2",
+    "@deepseek-ai/dsh-credentials": "^0.1.7-rc.2",
+    "@deepseek-ai/dsh-launch-environment": "^0.1.7-rc.2"
   }
 }

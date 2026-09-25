@@ -13,7 +13,8 @@ test("声明并导出 DSH Web 客户端配置卡片", async () => {
   assert.ok(changelog.includes(`## ${pkg.version} - `), "CHANGELOG.md 应包含当前版本的条目");
   assert.equal(pkg.exports["./client"].default, "./lib/client.js");
   assert.equal(pkg.dsh.client.platform, "web");
-  assert.ok(pkg.dsh.client.inject.includes("@deepseek-ai/dsh-client-ui-settings-plugins"));
+  assert.ok(pkg.dsh.client.inject.includes("@deepseek-ai/dsh-client-ui-plugin-manager"));
+  assert.ok(!pkg.dsh.client.inject.includes("@deepseek-ai/dsh-client-runtime"));
 });
 
 test("客户端 bundle 在 web-search-multi 命名空间注册配置卡片", async () => {
@@ -36,7 +37,7 @@ test("客户端 bundle 在 web-search-multi 命名空间注册配置卡片", asy
   });
   assert.deepEqual(
     [...plugin.inject],
-    ["slots", "locale", "remote", "remote.credentials", "settingsScope"],
+    ["slots", "locale", "remote", "remote.credentials", "configForms"],
   );
 
   let registered;
@@ -55,16 +56,20 @@ test("客户端 bundle 在 web-search-multi 命名空间注册配置卡片", asy
       bind: () => (key) => key,
       register: () => () => {},
     },
-    settingsScope: {
-      bind(spec) {
-        assert.equal(spec.namespace, "web-search-multi");
+    configForms: {
+      get(ns) {
+        assert.equal(ns, "web-search-multi");
         return scope;
+      },
+      whileServed(_names, mount) {
+        mount();
+        return () => {};
       },
     },
     remote: { credentials },
     slots: {
       inject(name, callback) {
-        assert.equal(name, "settings.plugin.item");
+        assert.equal(name, "plugins.item");
         callback();
       },
       register(options, component) {
@@ -75,8 +80,8 @@ test("客户端 bundle 在 web-search-multi 命名空间注册配置卡片", asy
   };
 
   plugin.apply(ctx);
-  assert.equal(registered.options.name, "settings.plugin.item");
-  assert.equal(registered.options.key, "web-search-multi");
+  assert.equal(registered.options.name, "plugins.item");
+  assert.equal(registered.options.id, "web-search-multi");
   assert.equal(typeof registered.options.inject, "function");
   assert.equal(typeof registered.component, "function");
   assert.equal(registered.options.inject().scope, scope);
